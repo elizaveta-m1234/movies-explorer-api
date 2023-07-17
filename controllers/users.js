@@ -58,6 +58,10 @@ module.exports.editProfile = (req, res, next) => {
     .orFail()
     .then((user) => res.send(user))
     .catch((err) => {
+      if (err.code === 11000) {
+        next(new Conflict('Пользователь с такой почтой уже существует'));
+        return;
+      }
       if (err.name === 'CastError' || err.name === 'ValidationError') {
         next(new BadRequest('Переданы некорректные данные при обновлении профиля'));
         return;
