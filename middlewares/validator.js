@@ -37,7 +37,7 @@ module.exports.createMovieValidator = celebrate({
     nameEN: Joi.string().required(),
     thumbnail: Joi.string().required()
       .pattern(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+#?$/i),
-    movieId: Joi.string().required(),
+    movieId: Joi.number().required(),
   }),
 });
 
