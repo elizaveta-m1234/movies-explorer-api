@@ -64,10 +64,11 @@ module.exports.deleteMovie = (req, res, next) => {
     .then((movie) => {
       if (id !== movie.owner.toString()) {
         throw new Forbidden('Отсутствует доступ');
+      } else {
+        movie.deleteOne()
+          .then(() => res.send({ message: 'Фильм удален' }))
+          .catch(next);
       }
-      movie.deleteOne()
-        .then(() => res.send({ message: 'Фильм удален' }))
-        .catch(next);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
